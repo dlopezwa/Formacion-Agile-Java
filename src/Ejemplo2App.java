@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import clases.Gamusino;
 
+// Ejemplos de Lambda functions.
 public class Ejemplo2App {
 	@FunctionalInterface
 	public interface ICalculadoraLambda {
@@ -16,6 +18,8 @@ public class Ejemplo2App {
 		// Parte 2 del ejemplo 2. Ordenación de colección de gamusinos.
 		ordenaGamusinos();
 
+		// Parte 3 del ejemplo 3. Agrupación de gamuisinos.
+		filtrarGamusinos();
 	}
 
 	public static void calculadoraLambda() {
@@ -32,15 +36,8 @@ public class Ejemplo2App {
 	}
 
 	public static void ordenaGamusinos() {
-		// Generamos 3 gamusinos para nuestra prueba.
-		Gamusino gamusino1 = new Gamusino("Pedro", 80, 105);
-		Gamusino gamusino2 = new Gamusino("Patxi", 90, 115);
-		Gamusino gamusino3 = new Gamusino("David", 75, 95);
 
-		List<Gamusino> listaGamusinos = new ArrayList<Gamusino>();
-		listaGamusinos.add(gamusino1);
-		listaGamusinos.add(gamusino2);
-		listaGamusinos.add(gamusino3);
+		List<Gamusino> listaGamusinos = getListaGamusinos();
 
 		// Los gamusinos con muy codiciados. Su valor se calcula en funcion de su peso.
 		// Queremos ordenarlos de mayor a menor peso.
@@ -61,4 +58,34 @@ public class Ejemplo2App {
 		System.out.println("\n_________________  Ordenamos por altura ascendente  ___________________\n");
 		listaGamusinos.forEach(gamusino->System.out.println(gamusino));
 	}
+
+
+	public static void filtrarGamusinos() {
+
+		System.out.println("\n____________  Filtrar Gamusinos cuyo nombre empieza por P  _____________\n");
+
+		List<Gamusino> listaGamusinosFiltrados =
+				getListaGamusinos()
+			        .stream()
+			        .filter(p -> p.getNombre().startsWith("P"))
+			        .collect(Collectors.toList());
+
+			System.out.println(listaGamusinosFiltrados);
+	}
+
+
+	private static List<Gamusino> getListaGamusinos() {
+		// Generamos 3 gamusinos para nuestra prueba.
+		Gamusino gamusino1 = new Gamusino("Pedro", 80, 105);
+		Gamusino gamusino2 = new Gamusino("Patxi", 90, 115);
+		Gamusino gamusino3 = new Gamusino("David", 75, 95);
+
+		List<Gamusino> listaGamusinos = new ArrayList<Gamusino>();
+		listaGamusinos.add(gamusino1);
+		listaGamusinos.add(gamusino2);
+		listaGamusinos.add(gamusino3);
+
+		return listaGamusinos;
+	}
+
 }
